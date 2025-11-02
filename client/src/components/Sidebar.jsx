@@ -11,7 +11,7 @@ const navItems = [
     {to: '/ai/remove-background', label: 'Remove Bakground', Icon: Eraser},
     {to: '/ai/remove-object', label: 'Remove Object', Icon: Scissors},
     {to: '/ai/review-resume', label: 'Review Resume', Icon: FileText},
-    {to: '/ai.community', label: 'Community', Icon: Users},
+    {to: '/ai/community', label: 'Community', Icon: Users},
 ]
 
 const Sidebar = ({sidebar,setSidebar}) => {
@@ -31,7 +31,7 @@ const Sidebar = ({sidebar,setSidebar}) => {
                     navItems.map(({to, label, Icon})=>(
                         <NavLink key={to} to={to} end={to === '/ai'} onClick={()=> setSidebar(false)} 
                         className={({isActive})=>`px-3.5 py-2.5 flex items-center gap-3 rounded 
-                        ${isActive ? 'bg-gradient-to-r from-[#3C81F6] to-[#9234EA] text-white' : ''}`}>
+                        ${isActive ? 'bg-linear-to-r from-[#3C81F6] to-[#9234EA] text-white' : ''}`}>
                             {
                                 ({isActive})=>(
                                     <>
