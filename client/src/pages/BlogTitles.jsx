@@ -28,7 +28,7 @@ const BlogTitles = () => {
         <div className='mt-3 flex gap-3 flex-wrap sm:max-w-9/11'>
           {blogCategories.map((item) => (
             <span onClick={()=>setSelectedCategory(item)} className={`text-xs px-4 py-1 border rounded-full cursor-pointer 
-              ${selectedcategory === item ? 'bg-pruple-50 text-purple-700' : 'text-gray-500 border-gray-300'}`}
+              ${selectedcategory === item ? 'bg-purple-50 text-purple-700' : 'text-gray-500 border-gray-300'}`}
                key={item}>{item}</span>
           ))}
         </div>
