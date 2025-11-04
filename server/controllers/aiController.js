@@ -4,7 +4,7 @@ import { clerkClient } from "@clerk/express";
 import axios from 'axios';
 import {v2 as cloudinary} from 'cloudinary';
 import fs from 'fs';
-import * as pdf from 'pdf-parse';
+import pdf from 'pdf-parse/lib/pdf-parse.js'
 
 const AI = new OpenAI({
     apiKey: process.env.GEMINI_API_KEY,
@@ -131,7 +131,7 @@ export const generateImage = async (req, res) => {
 export const removeImageBackground = async (req, res) => {
     try {
         const {userId} = req.auth();
-        const {image} = req.file;
+        const image = req.file;
         const plan = req.plan;
 
         if(plan !== 'premium') {
@@ -160,11 +160,11 @@ export const removeImageObject = async (req, res) => {
     try {
         const {userId} = req.auth();
         const {object} = req.body;
-        const {image} = req.file;
+        const image = req.file;
         const plan = req.plan;
 
         if(plan !== 'premium') {
-            return res.json({success: false, message: 'Image generation is available for premium users only.'});
+            return res.json({success: false, message: 'This feature is available for premium users only.'});
         }
 
         const {public_id} = await cloudinary.uploader.upload(image.path);
@@ -204,7 +204,8 @@ export const resumeReview = async (req, res) => {
         const dataBuffer = fs.readFileSync(resume.path);
         const pdfData = await pdf(dataBuffer);
 
-        const prompt = `Review my resume and provide feedback to improve it:\n\n${pdfData.text}`;
+        const prompt = `Review the following resume and provide constructive feedback on its strengths, weaknesses
+         and ares for improvement. Resume content:\n\n${pdfData.text}`;
 
         const response = await AI.chat.completions.create({
             model: "gemini-2.0-flash",

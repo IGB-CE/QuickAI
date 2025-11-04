@@ -16,7 +16,7 @@ export const getUserCreations = async (req, res) => {
 export const getPublishedCreations = async (req, res) => {
     try {
 
-        const creations = await sql`SELECT * FROM creations WHERE published = true order by created_at DESC`
+        const creations = await sql`SELECT * FROM creations WHERE publish = true order by created_at DESC`
 
         res.json({ success: true, creations });
     } catch (error) {
@@ -34,7 +34,7 @@ export const toggleLikeCreation = async (req, res) => {
             return res.json({ success: false, message: 'Creation not found' });
         }
 
-        const currentLikes = creation.likes ? creation.likes.split(',').map(Number) : []
+        const currentLikes = creation.likes;
         const userIdStr = userId.toString()
         let updatedLikes;
         let message;
